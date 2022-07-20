@@ -13,7 +13,7 @@ app.use(express.json());
 const start = async () => {
     try {
         await connectDB();
-        app.listen(port, console.log('App is listening at http://localhost:' + port));
+        app.listen(port, console.log('Server is listening at http://localhost:' + port));
     } catch (error) {
         console.log(error);
     }
