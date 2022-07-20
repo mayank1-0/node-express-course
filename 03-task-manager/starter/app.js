@@ -3,7 +3,7 @@ const app = express()
 var bodyParser = require('body-parser')
 const tasks = require('./routes/tasks')
 const connectDB = require('./db/connect')
-
+require('dotenv').config()
 app.use(bodyParser.json())
 
 const port = 3000
@@ -12,7 +12,7 @@ app.use(express.json());
 
 const start = async () => {
     try {
-        await connectDB();
+        await connectDB(process.env.MONGO_URI);
         app.listen(port, console.log('Server is listening at http://localhost:' + port));
     } catch (error) {
         console.log(error);
