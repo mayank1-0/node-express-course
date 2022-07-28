@@ -5,10 +5,19 @@ const tasks = require('./routes/tasks')
 const connectDB = require('./db/connect')
 require('dotenv').config()
 app.use(bodyParser.json())
+const notFound = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 const port = 3000
 
+app.use(express.static('./public'))
 app.use(express.json());
+
+
+//routes
+app.use('/api/v1/tasks', tasks);
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
     try {
@@ -20,30 +29,3 @@ const start = async () => {
 }
 
 start()
-
-app.get('/hello', (req,res)=>{
-    res.send('Task Manager App');
-})
-
-//routes
-// app.get('/api/v1/tasks', (req,res)=>{
-//     res.send('Task Manager App');
-// })
-
-// app.post('/api/v1/tasks', (req,res)=>{
-//     res.send('Task Manager App');
-// })
-
-// app.get('/api/v1/tasks/:id', (req,res)=>{
-//     res.send('Task Manager App');
-// })
-
-// app.patch('/api/v1/tasks/:id', (req,res)=>{
-//     res.send('Task Manager App');
-// })
-
-// app.delete('/api/v1/tasks/:id', (req,res)=>{
-//     res.send('Task Manager App');
-// })
-
-app.use('/api/v1/tasks', tasks);
